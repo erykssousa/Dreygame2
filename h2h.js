@@ -95,22 +95,6 @@ script.onerror = () => {
   `;
 };
 document.head.appendChild(script);
-
-
-  .then(()=> {
-    result.innerHTML = `
-      <h2>Obrigado, ${nome}!</h2>
-      <p>O teu resultado foi enviado automaticamente 💾</p>
-      <button onclick="resetGame()">Jogar de novo</button>
-    `;
-  })
-  .catch(()=>{
-    result.innerHTML = `
-      <h2>Oops!</h2>
-      <p>Falhou o envio — tenta outra vez mais tarde.</p>
-      <button onclick="resetGame()">Jogar de novo</button>
-    `;
-  });
 }
 
 const params = new URLSearchParams(location.search);
@@ -126,6 +110,7 @@ if (params.has('result')) {
 }
 
 render();
+
 
 
 
