@@ -73,11 +73,28 @@ function showRanking() {
 
   const nome = prompt("O teu nome?");
 
-fetch("https://script.google.com/macros/s/AKfycby8_b1RxjQoy0lgOx9fQ0S0ZFpJj9AX7R5A0-vgHbqpjQUA7qaeCJQfHSsxWtRwI2cUqQ/exec", {
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({ nome, elos: state.elos })
-})
+// ---------- envio JSONP (sem CORS) ----------
+const cb = 'cb' + Date.now();
+const script = document.createElement('script');
+script.src = `https://script.google.com/macros/s/AKfycby8_b1RxjQoy0lgOx9fQ0S0ZFpJj9AX7R5A0-vgHbqpjQUA7qaeCJQfHSsxWtRwI2cUqQ/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
+window[cb] = function(res){
+  console.log('✅ Guardado na spreadsheet:', res);
+  result.innerHTML = `
+    <h2>Obrigado, ${nome}!</h2>
+    <p>O teu resultado foi enviado automaticamente 💾</p>
+    <button onclick="resetGame()">Jogar de novo</button>
+  `;
+  delete window[cb];
+  document.head.removeChild(script);
+};
+script.onerror = () => {
+  result.innerHTML = `
+    <h2>Oops!</h2>
+    <p>Falhou o envio — tenta outra vez mais tarde.</p>
+    <button onclick="resetGame()">Jogar de novo</button>
+  `;
+};
+document.head.appendChild(script);
 
 
   .then(()=> {
@@ -109,5 +126,6 @@ if (params.has('result')) {
 }
 
 render();
+
 
 
