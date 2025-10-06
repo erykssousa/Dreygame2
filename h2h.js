@@ -76,7 +76,7 @@ function showRanking() {
 // ---------- envio JSONP (sem CORS) ----------
 const cb = 'cb' + Date.now();
 const script = document.createElement('script');
-script.src = `https://script.google.com/macros/s/AKfycby8_b1RxjQoy0lgOx9fQ0S0ZFpJj9AX7R5A0-vgHbqpjQUA7qaeCJQfHSsxWtRwI2cUqQ/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
+script.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
 window[cb] = function(res){
   console.log('✅ Guardado na spreadsheet:', res);
   result.innerHTML = `
@@ -126,6 +126,7 @@ if (params.has('result')) {
 }
 
 render();
+
 
 
 
