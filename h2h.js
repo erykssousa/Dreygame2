@@ -38,12 +38,12 @@ function render(){
   const [a,b] = state.remaining[0];
   arena.innerHTML = `
     <div class="card" onclick="vote(${a},${b})">
-      <img src="https://via.placeholder.com/240x240/0ff/000?text=${a}" alt="">
+      <div style="font-size:3rem;color:#fff">${a}</div>
       <h3>${titleOf(a)}</h3>
       <button class="preview-btn" onclick="event.stopPropagation();playPreview(${a})">▶ preview</button>
     </div>
     <div class="card" onclick="vote(${b},${a})">
-      <img src="https://via.placeholder.com/240x240/f0f/000?text=${b}" alt="">
+      <div style="font-size:3rem;color:#fff">${b}</div>
       <h3>${titleOf(b)}</h3>
       <button class="preview-btn" onclick="event.stopPropagation();playPreview(${b})">▶ preview</button>
     </div>`;
@@ -118,6 +118,7 @@ if (params.has('result')) {
 }
 
 render();
+
 
 
 
