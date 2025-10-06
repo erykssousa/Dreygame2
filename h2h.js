@@ -73,7 +73,7 @@ function showRanking() {
 
   const nome = prompt("O teu nome?");
 
-  fetch("https://script.google.com/macros/s/AKfycby0vkX88yeu4j5OA94ki0ZQjFy4KZobbyc566gxWcfP8b5U5Skh2d6mUzZ6DPt4VQN0Q/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzaeilu-jhUdPIIuJbUvhxn1asW2kugammVkGu2gd0tUptQYpvOu5_YXSnMq3AhogYLUA/exec", {
   method: "POST",
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify({ nome, elos: state.elos })
@@ -106,4 +106,5 @@ if (params.has('result')) {
 } else {
   render();
 }
+
 render();
