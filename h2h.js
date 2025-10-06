@@ -71,31 +71,39 @@ function showRanking() {
   arena.style.display = 'none';
   result.innerHTML = '<h2>Ranking final</h2><p>A enviar resultado...</p>';
 
-  const nome = prompt("O teu nome?");
+// ---------- mostra resultado ao jogador ----------
+arena.style.display = 'none';
+const sorted = playlist.slice().sort((x,y)=>state.elos[y.id]-state.elos[x.id]);
+let html = `<h2>O teu ranking final</h2><ol>`;
+sorted.forEach(t=>{
+  html += `<li>${t.title} – ${Math.round(state.elos[t.id])} pts</li>`;
+});
+html += `</ol>
+<button id="sendBtn">Enviar resultado</button>
+<button onclick="resetGame()">Jogar de novo (sem enviar)</button>`;
+result.innerHTML = html;
 
-// ---------- envio JSONP (sem CORS) ----------
-const cb = 'cb' + Date.now();
-const script = document.createElement('script');
-script.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
-window[cb] = function(res){
-  console.log('✅ Guardado na spreadsheet:', res);
-  result.innerHTML = `
-    <h2>Obrigado, ${nome}!</h2>
-    <p>O teu resultado foi enviado automaticamente 💾</p>
-    <button onclick="resetGame()">Jogar de novo</button>
-  `;
-  delete window[cb];
-  document.head.removeChild(script);
+// ---------- só envia quando clicar no botão ----------
+document.getElementById('sendBtn').onclick = ()=>{
+  const nome = prompt("Nome para o ranking:");
+  if(!nome) return;                       // cancelou
+  result.innerHTML = '<p>A enviar...</p>';
+
+  // ---------- agora sim, JSONP ----------
+  const cb = 'cb' + Date.now();
+  const script = document.createElement('script');
+  script.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
+  window[cb] = function(res){
+    console.log('✅ Guardado:', res);
+    result.innerHTML = `<h2>Obrigado, ${nome}!</h2><p>Resultado enviado 💾</p>`;
+    delete window[cb];
+    document.head.removeChild(script);
+  };
+  script.onerror = ()=>{
+    result.innerHTML = `<h2>Erro</h2><p>Falhou o envio — tenta mais tarde.</p>`;
+  };
+  document.head.appendChild(script);
 };
-script.onerror = () => {
-  result.innerHTML = `
-    <h2>Oops!</h2>
-    <p>Falhou o envio — tenta outra vez mais tarde.</p>
-    <button onclick="resetGame()">Jogar de novo</button>
-  `;
-};
-document.head.appendChild(script);
-}
 
 const params = new URLSearchParams(location.search);
 if (params.has('result')) {
@@ -110,6 +118,7 @@ if (params.has('result')) {
 }
 
 render();
+
 
 
 
