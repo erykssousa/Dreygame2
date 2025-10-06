@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Melhores do Drey</title>
+  <style>
+    body {
+      font-family: system-ui;
+      background: url('images/fundo.png') no-repeat center center fixed; /* <-- aqui */
+      background-size: cover; /* Faz a imagem preencher a tela */
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    #arena {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      width: 240px;
+      padding: 1rem;
+      border: 2px solid #444;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+      background-color: rgba(0, 0, 0, 0.6); /* leve transparência para destacar os cards */
+    }
+
+    .card:hover { border-color: #0ff; }
+
+    .card img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    .preview-btn {
+      background: #222;
+      border: none;
+      color: #0ff;
+      padding: .4rem .8rem;
+      margin-top: .5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+    }
+
+    progress {
+      width: 80%;
+      height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Melhores do Drey</h1>
+  <progress id="bar" max="100" value="0"></progress>
+  <div id="arena"></div>
+  <div id="result"></div>
+
+  <script src="playlist.js"></script>
+  <script src="h2h.js"></script>
+</body>
+
+<footer style="margin-top:3rem;font-size:.7rem;opacity:.6">Made by erykssousa</footer>
+</html>
