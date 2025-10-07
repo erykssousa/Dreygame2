@@ -120,14 +120,3 @@ function resetGame(){
   location.reload();
 }
 render();
-
-
-
-
-
-
-
-
-
-
-
