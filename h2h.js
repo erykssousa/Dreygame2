@@ -38,12 +38,12 @@ function render(){
   const [a,b] = state.remaining[0];
   arena.innerHTML = `
     <div class="card" onclick="vote(${a},${b})">
-     <div style="width:100%;height:140px;background:linear-gradient(135deg,#0ff,#f0f);border-radius:8px;"></div>
+     <div style="font-size:3rem;color:#fff">${a}</div>
       <h3>${titleOf(a)}</h3>
       <button class="preview-btn" onclick="event.stopPropagation();playPreview(${a})">▶ preview</button>
     </div>
     <div class="card" onclick="vote(${b},${a})">
-     <div style="width:100%;height:140px;background:linear-gradient(135deg,#0ff,#f0f);border-radius:8px;"></div>
+    <div style="font-size:3rem;color:#fff">${b}</div>
       <h3>${titleOf(b)}</h3>
       <button class="preview-btn" onclick="event.stopPropagation();playPreview(${b})">▶ preview</button>
     </div>`;
@@ -118,6 +118,7 @@ function resetGame(){
   location.reload();
 }
 render();
+
 
 
 
