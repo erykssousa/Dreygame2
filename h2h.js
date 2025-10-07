@@ -115,6 +115,7 @@ function showRanking() {
     document.head.appendChild(script);
   };
 }
+  
 const params = new URLSearchParams(location.search);
 if (params.has('result')) {
   const decoded = decodeURIComponent(params.get('result'));
@@ -131,4 +132,5 @@ function resetGame(){
   location.reload();
 }
 render();
+
 
