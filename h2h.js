@@ -90,10 +90,11 @@ function showRanking() {
     script.src = `https://script.google.com/macros/s/AKfycbywYVEJtimYiP3HAzq8Ad9Y7JUmLeW3kBqiKfw4pewkbsU3fRumLlsbfkbPaY81XJxtsQ/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
     window[cb] = function (res) {
       console.log('✅ Guardado:', res);
-      result.innerHTML = `<h2>Obrigado, ${nome}!</h2><p>Resultado enviado 💾</p>`;
-
-      // ---------- indicador de carregamento ----------
-      result.innerHTML += '<p id="loadGlobal">A carregar ranking global...</p>';
+      result.innerHTML = `
+      <h2>Obrigado, ${nome}!</h2>
+      <p>Resultado enviado 💾</p>
+      <p id="loadGlobal">A carregar ranking global...</p>
+      `;
 
       // ---------- pede ranking global ----------
       const cb2 = 'global' + Date.now();
@@ -137,6 +138,7 @@ function resetGame(){
   location.reload();
 }
 render();
+
 
 
 
