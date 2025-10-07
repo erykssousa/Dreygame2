@@ -97,6 +97,7 @@ function showRanking() {
       const script2 = document.createElement('script');
       script2.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?ranking=1&callback=${cb2}`;
       window[cb2] = function (top) {
+        console.log('Ranking recebido:', top);
         let tbl = '<h3>Ranking Global (Top 30)</h3><ol>';
         top.forEach((m, i) => tbl += `<li>${m.title} – ${m.pts} pts</li>`);
         tbl += '</ol>';
@@ -132,5 +133,6 @@ function resetGame(){
   location.reload();
 }
 render();
+
 
 
