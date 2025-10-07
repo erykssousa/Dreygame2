@@ -90,18 +90,20 @@ function showRanking() {
     // ⚠️ sem espaço depois de jsonp=
     script.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?jsonp=${cb}&nome=${encodeURIComponent(nome)}&data=${encodeURIComponent(JSON.stringify(state.elos))}`;
     window[cb] = function (res) {
-      console.log('✅ Guardado:', res);
-      result.innerHTML = `<h2>Obrigado, ${nome}!</h2><p>Resultado enviado 💾</p>`;
-      delete window[cb];
-      document.head.removeChild(script);
-    };
-    script.onerror = () => {
-      result.innerHTML = `<h2>Erro</h2><p>Falhou o envio — tenta mais tarde.</p>`;
-    };
-    document.head.appendChild(script);
+       // ---------- pede ranking global ----------
+  const cb2 = 'global' + Date.now();
+  const script2 = document.createElement('script');
+ script2.src = `https://script.google.com/macros/s/AKfycbwZDUoZ19YGoqWmCOur8QHw4crMMBZUGP8Yfw_jJwmx4UgSXPftTTpiXRGY_OovILmLvA/exec?ranking=1&callback=${cb2}`;
+  window[cb2] = function(top){
+    let tbl = '<h3>Ranking Global (Top 30)</h3><ol>';
+    top.forEach((m,i)=> tbl+=`<li>${m.title} – ${m.pts} pts</li>`);
+    tbl += '</ol>';
+    result.innerHTML += tbl;               // adiciona abaixo do "Obrigado"
+    delete window[cb2];
+    document.head.removeChild(script2);
   };
-}
-
+  document.head.appendChild(script2);
+};
 const params = new URLSearchParams(location.search);
 if (params.has('result')) {
   const decoded = decodeURIComponent(params.get('result'));
