@@ -97,13 +97,13 @@ function showRanking() {
       const script2 = document.createElement('script');
       script2.src = `https://script.google.com/macros/s/AKfycbywYVEJtimYiP3HAzq8Ad9Y7JUmLeW3kBqiKfw4pewkbsU3fRumLlsbfkbPaY81XJxtsQ/exec?ranking=1&callback=${cb2}`;
       window[cb2] = function (top) {
-        console.log('Ranking recebido:', top);
-        let tbl = '<h3>Ranking Global (Top 30)</h3><ol>';
-        top.forEach((m, i) => tbl += `<li>${m.title} – ${m.pts} pts</li>`);
-        tbl += '</ol>';
-        result.innerHTML += tbl;
-        delete window[cb2];
-        document.head.removeChild(script2);
+      console.log('Ranking recebido:', top);
+      let tbl = '<h3>Ranking Global (Top 30)</h3><ol>';
+      top.forEach((m, i) => tbl += `<li>${m.title} – ${m.pts} pts</li>`);
+      tbl += '</ol>';
+      result.innerHTML += tbl;
+      delete window[cb2];
+      document.head.removeChild(script2);
       };
       script2.onerror = () => {
         result.innerHTML += `<p>Erro ao carregar ranking global.</p>`;
@@ -133,6 +133,7 @@ function resetGame(){
   location.reload();
 }
 render();
+
 
 
 
